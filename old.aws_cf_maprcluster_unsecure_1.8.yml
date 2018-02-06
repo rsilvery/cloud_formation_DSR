@@ -80,7 +80,7 @@ Parameters:
     Default: ""
   securityGroups:
     Description: Security group ids for an existing subnet if specified above, otherwise empty. Include all required security group ids including "default".
-    Type: String
+    Type: CommaDelimitedList
     Default: ""
   installOpenVPN:
     Description: Enable public Internet access to MapR cluster with OpenVPN. If you are using an existing subnet, this is ignored.
@@ -380,7 +380,6 @@ Resources:
             echo "config.provider.config.key_name=$key " >> $input
             echo "config.provider.config.use_installer=$useInstaller " >> $input
             echo "config.provider.config.use_ephemeral=$use_ephemeral " >> $input
-            echo "config.security=false " >> $input"
             services="config.services={\"mapr-core\": {\"version\": \"$MAPR_CORE\"}}"
             chown $M_USER:$M_USER $input
             status="SUCCESS"
@@ -418,6 +417,7 @@ Resources:
               echo "  ssh_key_file: $key_file " >> $input
               echo "  cluster_name: ${clusterName} " >> $input
               echo "  mep_version: ${MEP} " >> $input
+              echo "  security: false " >> $input
               echo "  provider: " >> $input
               echo "    id: AWS " >> $input
               echo "    config: " >> $input
