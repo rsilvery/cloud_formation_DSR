@@ -357,7 +357,6 @@ Resources:
             if ${installerOnItsOwn}; then useInstaller=False; else useInstaller=True; fi
             if ${useInstanceStore}; then use_ephemeral=True; else use_ephemeral=False; fi
             echo "environment.mapr_core_version=$MAPR_CORE " > $input
-            echo "config.security=false " >> $input
             echo "config.mep_version=${MEP} " >> $input
             echo "config.cluster_name=${clusterName} " >> $input
             echo "config.ssh_id=$SSH_USER " >> $input
