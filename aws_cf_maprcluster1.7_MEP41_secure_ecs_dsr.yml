@@ -15,7 +15,7 @@ Parameters:
   MEP:
     Description: MapR Ecosystem Pack version
     Type: String
-    AllowedValues: [ 3.0.1, 4.0.0, 4.1.0 ]
+    AllowedValues: [ 4.0.0, 4.1.0 ]
     Default: 4.1.0
   provisioningTemplate:
     Description: Auto-provisioning templates for specific use cases
@@ -108,11 +108,16 @@ Rules:
   MapRPasswordVerify:
     Assertions:
       - Assert: !Equals [ !Ref clusterAdminPassword, !Ref clusterAdminPasswordConfirm ]
-        AssertDescription: “Cluster admin passwords do not match"
+        AssertDescription: ���Cluster admin passwords do not match"
   OpenVPNPasswordVerify:
     Assertions:
       - Assert: !Equals [ !Ref openVPNpassword, !Ref openVPNpasswordConfirm ]
-        AssertDescription: “OpenVPN user passwords do not match"
+        AssertDescription: ���OpenVPN user passwords do not match"
+  ValidSubnet:
+    RuleCondition: !Not [!Equals [ !Ref useExistingSubnet, "" ]]
+    Assertions:
+      - Assert:  !Not [!Contains [ !RefAll "AWS::EC2::Subnet::Id", !Ref useExistingSubnet ]]
+        AssertDescription: "Not a valid subnet"
 Conditions:
   InstallOpenVPN: !And [!Equals [!Ref installOpenVPN, true], !Equals [!Ref useExistingSubnet, ""]]
   CreateVPC: !Equals [!Ref useExistingSubnet, ""]
@@ -195,33 +200,33 @@ Mappings:
     #If you update these AMI, make sure to update the login user used in this template
     #Update with AMI before using the template
     us-east-1: # N Viriginia
-      AMI: ami-d78205ad
+      AMI: ami-93e668e9
     us-east-2: # Ohio
-      AMI: ami-7d517918
+      AMI: ami-98133dfd
     us-west-1: # California
-      AMI: ami-f494ab94
+      AMI: ami-a6330bc6
     us-west-2: # Oregon
-      AMI: ami-ec0caf94
-#    ca-central-1: # Québec
-#      AMI: ami-dbe28fbb
-#    eu-central-1: # Frankfurt
-#      AMI: ami-9bf712f4
-#    eu-west-1: # Ireland
-#      AMI: ami-7abd0209
-#    eu-west-2: # London
-#      AMI: ami-7abd0209
-#    ap-southeast-1: # Singapore
-#      AMI: ami-7abd0209
-#    ap-southeast-2: # Sydney
-#      AMI: ami-7abd020
-#    ap-south-1 : # Mumbai
-#      AMI: ami-7abd0209
-#    ap-northeast-1: # Tokoyo
-#      AMI: ami-7abd0209
-#    ap-northeast-2: # Seoul
-#      AMI: ami-7abd0209
-#    sa-east-1: # São Paulo
-#      AMI: ami-7abd0209
+      AMI: ami-b3ef3dcb
+    ca-central-1: # Qu��bec
+      AMI: ami-a19b20c5
+    eu-central-1: # Frankfurt
+      AMI: ami-4079fa2f
+    eu-west-1: # Ireland
+      AMI: ami-cd00b5b
+    eu-west-2: # London
+      AMI: ami-4a233c2e
+    ap-southeast-1: # Singapore
+      AMI: ami-55dd8936
+    ap-southeast-2: # Sydney
+      AMI: ami-a56a81c7
+    ap-south-1 : # Mumbai
+      AMI: ami-9eb9f6f1
+    ap-northeast-1: # Tokoyo
+      AMI: ami-a73f8cc1
+    ap-northeast-2: # Seoul
+      AMI: ami-5383243d
+    sa-east-1: # S��o Paulo
+      AMI: ami-0e591c62
 Resources:
   VPC:
     Type: AWS::CloudFormation::Stack
