@@ -262,7 +262,6 @@ Resources:
             docker run -it -d \
             -p 9995:9995 \
             -p 10000-10010:10000-10010 \
-            -p 11000-11010:11000-11010 \
             --cap-add SYS_ADMIN \
             --cap-add SYS_RESOURCE \
             --device /dev/fuse \
