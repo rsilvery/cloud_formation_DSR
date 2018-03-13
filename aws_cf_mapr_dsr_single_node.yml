@@ -257,7 +257,7 @@ Resources:
             yum install -y docker
             service docker start
             service docker enable
-            echo $M_USER_PWD | maprlogin password -user mapr
+            echo $M_USER_PWD | sudo -u mapr maprlogin password
             cat > /root/run_dsr.sh <<EOF
             docker run -it -d \
             -p 9995:9995 \
@@ -266,7 +266,7 @@ Resources:
             --cap-add SYS_ADMIN \
             --cap-add SYS_RESOURCE \
             --device /dev/fuse \
-            -v /tmp/maprticket_0:/tmp/maprticket_0:ro \
+            -v /tmp/maprticket_5000:/tmp/maprticket_5000:ro \
             -v /sys/fs/cgroup:/sys/fs/cgroup:ro \
             -e HOST_IP=$localipv4 \
             -e MAPR_CLUSTER=${AWS::StackName} \
@@ -278,7 +278,7 @@ Resources:
             -e MAPR_CONTAINER_GID=5000 \
             -e MAPR_MOUNT_PATH=/mapr \
             -e MAPR_HS_HOST=$localipv4 \
-            -e MAPR_TICKETFILE_LOCATION=/tmp/maprticket_0 \
+            -e MAPR_TICKETFILE_LOCATION=/tmp/maprticket_5000 \
             docker.io/maprtech/data-science-refinery
             EOF
             chmod +x /root/run_dsr.sh
