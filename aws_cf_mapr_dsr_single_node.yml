@@ -21,8 +21,8 @@ Parameters:
   instanceType:
     Description: AWS Instance types - https://aws.amazon.com/ec2/instance-types
     Type: String
-    AllowedValues: [ m4.xlarge, m4.2xlarge, m4.4xlarge, m4.10xlarge, m4.16xlarge  ]
-    Default: m4.xlarge
+    AllowedValues: [ m4.2xlarge, m4.4xlarge, m4.10xlarge, m4.16xlarge  ]
+    Default: m4.2xlarge
   keyName:
     Description: AWS key pair used to create nodes
     Type: AWS::EC2::KeyPair::KeyName
@@ -71,7 +71,7 @@ Mappings:
       MAPRCORE: "6.0.0"
       MEP: "4.1.0"
       # Values for this template
-      provisioningTemplate: "Real-Time-Analytics-with-Spark"
+      provisioningTemplate: "Converged-Platform"
       diskType: "gp2"
       CIDR: "0.0.0.0/0"
   StanzaURL:
