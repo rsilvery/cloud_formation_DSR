@@ -278,8 +278,8 @@ Resources:
             -e MAPR_CONTAINER_GID=5000 \
             -e MAPR_MOUNT_PATH=/mapr \
             -e MAPR_HS_HOST=$localipv4 \
-            -e MAPR_TICKETFILE_LOCATION=/tmp/maprticket_0
-            maprtech/data-science-refinery
+            -e MAPR_TICKETFILE_LOCATION=/tmp/maprticket_0 \
+            docker.io/maprtech/data-science-refinery
             EOF
             chmod +x /root/run_dsr.sh
             /root/run_dsr.sh &
