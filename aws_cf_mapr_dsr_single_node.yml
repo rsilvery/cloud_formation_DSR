@@ -258,6 +258,7 @@ Resources:
             service docker start
             service docker enable
             cat > /root/run_dsr.sh <<EOF
+            echo $M_USER_PWD | maprlogin password -user mapr
             docker run -it -d \
             -p 9995:9995 \
             -p 10000-10010:10000-10010 \
@@ -276,6 +277,7 @@ Resources:
             -e MAPR_CONTAINER_GID=5000 \
             -e MAPR_MOUNT_PATH=/mapr \
             -e MAPR_HS_HOST=$localipv4 \
+            -e MAPR_TICKETFILE_LOCATION=/tmp/maprticket_0
             maprtech/data-science-refinery
             EOF
             chmod +x /root/run_dsr.sh
